@@ -22,6 +22,9 @@ public class ArrayCouples {
 
         String result = arrayChallenge(arr);
         System.out.println("Output: " + result);
+
+        reader.close();
+
     }
 
     public static String arrayChallenge(int[] arr) {
@@ -35,14 +38,19 @@ public class ArrayCouples {
             reversedPairs.put(reversedPair, arr[i] * 10 + arr[i + 1]);
         }
 
+        List<String> incorrectPairs = new ArrayList<>();
         for (int i = 0; i < arr.length; i += 2) {
             int reversedPair = arr[i] * 10 + arr[i + 1];
-            if (!reversedPairs.containsKey(reversedPair)) {
-                return arr[i] + "," + arr[i + 1];
+            if (!reversedPairs.containsKey(reversedPair) || arr[i] == arr[i + 1]) {
+                incorrectPairs.add(arr[i] + "," + arr[i + 1]);
             }
         }
 
-        return "yes";
+        if (incorrectPairs.isEmpty()) {
+            return "yes";
+        } else {
+            return String.join(",", incorrectPairs);
+        }
     }
 }
 
